@@ -25,6 +25,13 @@ enum State {
 };
 State state;
 
+void resetDisplay() {
+  display.clearDisplay();
+  display.setTextSize(3);
+  display.setCursor(5, 20);
+  display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
+}
+
 void setup() {
   Serial.begin(9600);
   Serial.println("HX711 Scale");
@@ -40,8 +47,7 @@ void setup() {
       Serial.println("Init display failed!");
     }
   }
-  display.clearDisplay();
-  display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
+  resetDisplay();
 
   Serial.println("Init done");
 }
@@ -88,6 +94,7 @@ void loop() {
         weight = v;
         Serial.println("Weight: ");
         Serial.println(v);
+        resetDisplay();
         display.println(v);
         display.display();
       }
